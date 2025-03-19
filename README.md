@@ -89,3 +89,25 @@ yarn build
 The build artifacts will be stored in the `dist/` directory.
 
 ## Setting Up ArgoCD
+
+https://argo-cd.readthedocs.io/en/stable/getting_started/
+
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+This will create a new namespace, argocd, where Argo CD services and application resources will live.
+
+```bash
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+Change the argocd-server service type to LoadBalancer, You can access the Argo CD UI by using the Load Balancer
+
+
+```bash
+argocd admin initial-password -n argocd
+```
+
+The password you will get get after running the above command, login to ArgoCD using above password with username as admin
